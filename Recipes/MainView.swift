@@ -12,6 +12,22 @@ struct Meal: Identifiable, Decodable {
   let strMeal: String
   let strMealThumb: String
   var id: String { idMeal }
+  
+  @ViewBuilder
+  func imageView() -> some View {
+    AsyncImage(url: URL(string: strMealThumb)) { phase in
+      switch phase {
+      case .empty:
+        ProgressView()
+      case .success(let image):
+        image.resizable().aspectRatio(contentMode: .fit)
+      case .failure(let error):
+        Image(systemName: "exclamationmark.square.fill")
+      @unknown default:
+        Image(systemName: "questionmark.square.fill")
+      }
+    }
+  }
 }
 
 struct MealsResponse: Decodable {
@@ -51,18 +67,7 @@ struct MainView: View {
         LazyVGrid(columns: columns, spacing: 20) {
           ForEach(viewModel.meals) { meal in
             ZStack {
-              AsyncImage(url: URL(string: meal.strMealThumb)) { phase in
-                switch phase {
-                case .empty:
-                  ProgressView()
-                case .success(let image):
-                  image.resizable().aspectRatio(contentMode: .fit)
-                case .failure(let error):
-                  Image(systemName: "photo")
-                @unknown default:
-                  Image(systemName: "photo")
-                }
-              }
+              meal.imageView()
               
               VStack {
                 Spacer()

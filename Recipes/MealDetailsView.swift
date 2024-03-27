@@ -48,19 +48,8 @@ struct MealDetailsView: View {
     NavigationStack {
       VStack(spacing: 0) {
         if let mealDetail = viewModel.mealDetail {
-          AsyncImage(url: URL(string: meal.strMealThumb)) { phase in
-            switch phase {
-            case .empty:
-              ProgressView()
-            case .success(let image):
-              image.resizable().aspectRatio(contentMode: .fit)
-            case .failure(let error):
-              Image(systemName: "photo")
-            @unknown default:
-              Image(systemName: "photo")
-            }
-          }
-          
+          meal.imageView()
+
           VStack(alignment: .leading, spacing: 20) {
             Text(mealDetail.strMeal)
               .font(.title)
