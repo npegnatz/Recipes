@@ -68,6 +68,7 @@ struct MainView: View {
           ForEach(viewModel.meals) { meal in
             ZStack {
               meal.imageView()
+                .overlay(LinearGradient(colors: [Color.clear, Color.black], startPoint: .top, endPoint: .bottom))
               
               VStack {
                 Spacer()
@@ -75,7 +76,7 @@ struct MainView: View {
                   .fontWeight(.semibold)
                   .foregroundStyle(.white)
               }
-              .padding(5)
+              .padding(10)
             }
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .onTapGesture {

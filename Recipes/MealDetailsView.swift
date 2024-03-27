@@ -17,7 +17,6 @@ struct MealDetails: Decodable {
   let strCategory: String
   let strTags: String
   let strSource: String
-  //let ingredients: [String]
 }
 
 struct MealDetailsResponse: Decodable {
@@ -46,23 +45,25 @@ struct MealDetailsView: View {
   
   var body: some View {
     NavigationStack {
-      VStack(spacing: 0) {
-        if let mealDetail = viewModel.mealDetail {
-          meal.imageView()
+      ScrollView {
+        VStack(spacing: 0) {
+          if let mealDetail = viewModel.mealDetail {
+            meal.imageView()
 
-          VStack(alignment: .leading, spacing: 20) {
-            Text(mealDetail.strMeal)
-              .font(.title)
-            
-            Spacer()
-            
-            Text("Instructions")
-              .font(.headline)
-            Text(mealDetail.strInstructions)
+            VStack(alignment: .leading, spacing: 20) {
+              Text(mealDetail.strMeal)
+                .font(.title)
+              
+              Spacer()
+              
+              Text("Instructions")
+                .font(.headline)
+              Text(mealDetail.strInstructions)
+            }
+            .padding()
+          } else {
+            ProgressView()
           }
-          .padding()
-        } else {
-          ProgressView()
         }
       }
       .onAppear {
