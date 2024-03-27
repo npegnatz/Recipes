@@ -14,9 +14,9 @@ struct MealDetails: Decodable {
   let strMeal: String
   let strInstructions: String
   let strMealThumb: String
-  let strCategory: String
-  let strTags: String
-  let strSource: String
+  let strCategory: String?
+  let strTags: String?
+  let strSource: String?
 }
 
 struct MealDetailsResponse: Decodable {
@@ -24,16 +24,16 @@ struct MealDetailsResponse: Decodable {
 }
 
 class MealDetailViewModel: ObservableObject {
-  @Published var mealDetail: MealDetails?
+  @Published var mealDetails: MealDetails?
   
-  func fetchMealDetail(mealID: String) {
+  func fetchMealDetails(mealID: String) {
     guard let url = URL(string: "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(mealID)") else { return }
     
     URLSession.shared.dataTask(with: url) { data, response, error in
       guard let data = data, error == nil else { return }
       let mealDetailsResponse = try? JSONDecoder().decode(MealDetailsResponse.self, from: data)
       DispatchQueue.main.async {
-        self.mealDetail = mealDetailsResponse?.meals.first
+        self.mealDetails = mealDetailsResponse?.meals.first
       }
     }.resume()
   }
@@ -45,30 +45,40 @@ struct MealDetailsView: View {
   
   var body: some View {
     NavigationStack {
-      ScrollView {
-        VStack(spacing: 0) {
-          if let mealDetail = viewModel.mealDetail {
+      if let mealDetails = viewModel.mealDetails {
+        ScrollView {
+          VStack(spacing: 0) {
             meal.imageView()
 
             VStack(alignment: .leading, spacing: 20) {
-              Text(mealDetail.strMeal)
+              Text(mealDetails.strMeal)
                 .font(.title)
               
-              Spacer()
+              HStack {
+                ForEach([mealDetails.strCategory, mealDetails.strTags], id: \.self) { item in
+                  if let item = item {
+                    Text(item)
+                      .foregroundStyle(.white)
+                      .font(.system(size: 13, weight: .semibold))
+                      .padding(10)
+                      .background(Capsule().fill(Color.black))
+                  }
+                }
+              }
               
               Text("Instructions")
                 .font(.headline)
-              Text(mealDetail.strInstructions)
+              Text(mealDetails.strInstructions)
             }
             .padding()
-          } else {
-            ProgressView()
           }
         }
+      } else {
+        ProgressView()
       }
-      .onAppear {
-        viewModel.fetchMealDetail(mealID: meal.idMeal)
-      }
+    }
+    .onAppear {
+      viewModel.fetchMealDetails(mealID: meal.idMeal)
     }
   }
 }
