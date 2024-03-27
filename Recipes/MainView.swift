@@ -84,7 +84,7 @@ struct MainView: View {
       .sheet(item: $selectedMeal, onDismiss: {
         selectedMeal = nil
       }, content: { meal in
-        MealView(meal: meal)
+        MealDetailsView(meal: meal)
       })
       .onAppear {
         viewModel.fetchDesserts()
