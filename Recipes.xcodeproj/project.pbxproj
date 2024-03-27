@@ -14,6 +14,7 @@
 		DBC57DE12BB4869B0075615C /* RecipesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC57DE02BB4869B0075615C /* RecipesTests.swift */; };
 		DBC57DEB2BB4869B0075615C /* RecipesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC57DEA2BB4869B0075615C /* RecipesUITests.swift */; };
 		DBC57DED2BB4869B0075615C /* RecipesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC57DEC2BB4869B0075615C /* RecipesUITestsLaunchTests.swift */; };
+		DBC57DFC2BB491350075615C /* MealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC57DFB2BB491350075615C /* MealView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		DBC57DE62BB4869B0075615C /* RecipesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBC57DEA2BB4869B0075615C /* RecipesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesUITests.swift; sourceTree = "<group>"; };
 		DBC57DEC2BB4869B0075615C /* RecipesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DBC57DFB2BB491350075615C /* MealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				DBC57DCF2BB4869A0075615C /* RecipesApp.swift */,
 				DBC57DD12BB4869A0075615C /* MainView.swift */,
+				DBC57DFB2BB491350075615C /* MealView.swift */,
 				DBC57DD32BB4869A0075615C /* Assets.xcassets */,
 				DBC57DD52BB4869A0075615C /* Preview Content */,
 			);
@@ -259,6 +262,7 @@
 			files = (
 				DBC57DD22BB4869A0075615C /* MainView.swift in Sources */,
 				DBC57DD02BB4869A0075615C /* RecipesApp.swift in Sources */,
+				DBC57DFC2BB491350075615C /* MealView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
