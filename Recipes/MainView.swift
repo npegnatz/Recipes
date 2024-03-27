@@ -40,8 +40,22 @@ struct MainView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.meals) { meal in
-                Text(meal.strMeal)
+            List(viewModel.meals.sorted { $0.strMeal < $1.strMeal }) { meal in
+                HStack {
+                    AsyncImage(url: URL(string: meal.strMealThumb)) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image.resizable().aspectRatio(contentMode: .fit)
+                        case .failure(let error):
+                            Image(systemName: "photo")
+                        @unknown default:
+                            Image(systemName: "photo")
+                        }
+                    }
+                    Text(meal.strMeal)
+                }
             }
             .navigationTitle("Desserts")
             .onAppear {
