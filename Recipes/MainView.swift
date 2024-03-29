@@ -33,7 +33,8 @@ struct MainView: View {
               }
               .padding(10)
             }
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+            .padding([.leading, .trailing], 5)
             .onTapGesture {
               selectedMeal = meal
             }
@@ -42,7 +43,7 @@ struct MainView: View {
         .padding()
       }
       .navigationTitle("Desserts")
-      .sheet(item: $selectedMeal, onDismiss: {
+      .fullScreenCover(item: $selectedMeal, onDismiss: {
         selectedMeal = nil
       }, content: { meal in
         MealDetailsView(meal: meal)

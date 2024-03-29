@@ -17,12 +17,19 @@ struct MealDetailsView: View {
       if let mealDetails = viewModel.mealDetails {
         ScrollView {
           VStack(spacing: 0) {
-            meal.imageView()
+            ZStack(alignment: .bottom) {
+              meal.imageView()
+                .overlay(LinearGradient(colors: [Color.clear, Color.black.opacity(0.75)], startPoint: .top, endPoint: .bottom))
+              
+              Text(mealDetails.strMeal)
+                .font(.system(size: 25, weight: .semibold))
+                .foregroundStyle(Color.white)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+            }
+            
 
             VStack(alignment: .leading, spacing: 20) {
-              Text(mealDetails.strMeal)
-                .font(.title)
-              
               HStack {
                 ForEach([mealDetails.strCategory, mealDetails.strTags], id: \.self) { item in
                   if let item = item {
@@ -58,6 +65,18 @@ struct MealDetailsView: View {
               }
             }
             .padding()
+          }
+        }
+        .ignoresSafeArea()
+        .toolbar {
+          ToolbarItem(placement: .cancellationAction) {
+            Button(action: {}) {
+              Image(systemName: "multiply.circle.fill")
+                .resizable()
+                .foregroundStyle(Color.white)
+                .opacity(0.8)
+                .frame(width: 30, height: 30)
+            }
           }
         }
       } else {
