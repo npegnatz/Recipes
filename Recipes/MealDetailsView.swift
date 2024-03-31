@@ -38,7 +38,7 @@ struct MealDetailsView: View {
           ScrollView {
             VStack(alignment: .leading, spacing: 20) {
               HStack {
-                ForEach([mealDetails.strCategory, mealDetails.strTags], id: \.self) { item in
+                ForEach([mealDetails.strCategory] + mealDetails.strTags, id: \.self) { item in
                   if let item = item {
                     Text(item)
                       .foregroundStyle(.white)

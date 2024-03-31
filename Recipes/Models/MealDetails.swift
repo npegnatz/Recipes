@@ -13,7 +13,7 @@ struct MealDetails: Decodable {
   let strInstructions: String
   let strMealThumb: String
   let strCategory: String?
-  let strTags: String?
+  let strTags: [String]
   let strSource: String?
   let ingredients: [Ingredient]
   
@@ -44,7 +44,7 @@ struct MealDetails: Decodable {
     strInstructions = try container.decode(String.self, forKey: .strInstructions)
     strMealThumb = try container.decode(String.self, forKey: .strMealThumb)
     strCategory = try container.decode(String.self, forKey: .strCategory)
-    strTags = try container.decode(String.self, forKey: .strTags)
+    strTags = (try container.decode(String.self, forKey: .strTags)).components(separatedBy: ",")
     strSource = try container.decode(String.self, forKey: .strSource)
     
     
