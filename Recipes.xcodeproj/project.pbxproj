@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB0EA1BA2BBA1EEC00333D9C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0EA1B92BBA1EEC00333D9C /* Extensions.swift */; };
 		DBA92E4A2BB72EC4000EC90A /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA92E492BB72EC4000EC90A /* Ingredient.swift */; };
 		DBA92E4C2BB72EEA000EC90A /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA92E4B2BB72EEA000EC90A /* Meal.swift */; };
 		DBA92E4F2BB72F8A000EC90A /* MealsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA92E4E2BB72F8A000EC90A /* MealsViewModel.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB0EA1B92BBA1EEC00333D9C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DBA92E492BB72EC4000EC90A /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		DBA92E4B2BB72EEA000EC90A /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		DBA92E4E2BB72F8A000EC90A /* MealsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsViewModel.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				DBC57DCF2BB4869A0075615C /* RecipesApp.swift */,
 				DBC57DD12BB4869A0075615C /* MainView.swift */,
 				DBC57DFB2BB491350075615C /* MealDetailsView.swift */,
+				DB0EA1B92BBA1EEC00333D9C /* Extensions.swift */,
 				DBC57DD32BB4869A0075615C /* Assets.xcassets */,
 				DBC57DD52BB4869A0075615C /* Preview Content */,
 			);
@@ -292,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBA92E4C2BB72EEA000EC90A /* Meal.swift in Sources */,
+				DB0EA1BA2BBA1EEC00333D9C /* Extensions.swift in Sources */,
 				DBA92E4A2BB72EC4000EC90A /* Ingredient.swift in Sources */,
 				DBC57DD22BB4869A0075615C /* MainView.swift in Sources */,
 				DBA92E512BB73008000EC90A /* MealDetails.swift in Sources */,

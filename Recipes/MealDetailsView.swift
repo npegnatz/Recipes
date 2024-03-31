@@ -8,28 +8,34 @@
 import Foundation
 import SwiftUI
 
+/** Shows detailed information for a meal */
 struct MealDetailsView: View {
+  //MARK: - Variables
   @Environment(\.dismiss) var dismiss
   @StateObject private var viewModel = MealDetailsViewModel()
+  @State private var isIngredientsExpanded: Bool = true
+  @State private var isInstructionsExpanded: Bool = true
   var meal: Meal
   
+  //MARK: - Views
   var body: some View {
     NavigationStack {
       if let mealDetails = viewModel.mealDetails {
-        ScrollView {
-          VStack(spacing: 0) {
-            ZStack(alignment: .bottom) {
-              meal.imageView()
-                .overlay(LinearGradient(colors: [Color.clear, Color.black.opacity(0.75)], startPoint: .top, endPoint: .bottom))
-              
-              Text(mealDetails.strMeal)
-                .font(.system(size: 25, weight: .semibold))
-                .foregroundStyle(Color.white)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-            }
+        VStack(spacing: 0) {
+          ZStack(alignment: .bottom) {
+            meal.imageView()
+              .aspectRatio(contentMode: .fill)
+              .frame(height: 300)
+              .overlay(LinearGradient(colors: [Color.clear, Color.black.opacity(0.75)], startPoint: .top, endPoint: .bottom))
             
-
+            Text(mealDetails.strMeal)
+              .font(.system(size: 25, weight: .semibold))
+              .foregroundStyle(Color.white)
+              .frame(maxWidth: .infinity, alignment: .leading)
+              .padding()
+          }
+          
+          ScrollView {
             VStack(alignment: .leading, spacing: 20) {
               HStack {
                 ForEach([mealDetails.strCategory, mealDetails.strTags], id: \.self) { item in
@@ -44,7 +50,7 @@ struct MealDetailsView: View {
               }
 
               GroupBox {
-                DisclosureGroup(
+                DisclosureGroup(isExpanded: $isIngredientsExpanded,
                   content: {
                     VStack(alignment: .leading, spacing: 0) {
                       Spacer()
@@ -63,7 +69,7 @@ struct MealDetailsView: View {
               }
             
               GroupBox {
-                DisclosureGroup(
+                DisclosureGroup(isExpanded: $isInstructionsExpanded,
                   content: {
                     Text(mealDetails.strInstructions)
                       .padding(.top, 10)
@@ -74,6 +80,7 @@ struct MealDetailsView: View {
             }
             .padding()
           }
+          .background(.background)
         }
         .ignoresSafeArea()
         .toolbarBackground(.hidden, for: .navigationBar)
@@ -100,16 +107,4 @@ struct MealDetailsView: View {
 
 #Preview {
   MealDetailsView(meal: Meal(idMeal: "52893", strMeal: "Apple & Blackberry Crumble", strMealThumb: "https://www.themealdb.com/images/media/meals/xvsurr1511719182.jpg"))
-}
-
-
-extension String {
-  func integerSuffix() -> Int? {
-      let nonDigitCharacterSet = CharacterSet.decimalDigits.inverted
-      let components = self.components(separatedBy: nonDigitCharacterSet)
-      if let lastComponent = components.last, let number = Int(lastComponent) {
-          return number
-      }
-      return nil
-  }
 }
