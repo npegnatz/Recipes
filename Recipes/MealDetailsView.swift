@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct MealDetailsView: View {
+  @Environment(\.dismiss) var dismiss
   @StateObject private var viewModel = MealDetailsViewModel()
   var meal: Meal
   
@@ -37,40 +38,48 @@ struct MealDetailsView: View {
                       .foregroundStyle(.white)
                       .font(.system(size: 13, weight: .semibold))
                       .padding(10)
-                      .background(Capsule().fill(Color.black))
+                      .background(Capsule().fill(Color.primary))
                   }
                 }
-              }
-              
-              Section {
-                VStack(alignment: .leading, spacing: 0) {
-                  ForEach(mealDetails.ingredients) { item in
-                    HStack {
-                      Text(item.name)
-                      Image(systemName: "arrow.right")
-                      Text(item.measure)
-                    }
-                  }
-                }
-              } header: {
-                Text("Ingredients")
-                  .font(.headline)
               }
 
-              Section {
-                Text(mealDetails.strInstructions)
-              } header: {
-                Text("Instructions")
-                  .font(.headline)
+              GroupBox {
+                DisclosureGroup(
+                  content: {
+                    VStack(alignment: .leading, spacing: 0) {
+                      Spacer()
+                    
+                      ForEach(mealDetails.ingredients) { item in
+                        HStack {
+                          Text(item.name)
+                          Spacer()
+                          Text(item.measure)
+                        }
+                      }
+                    }
+                  },
+                  label: { Text("Ingredients").font(.headline).foregroundStyle(Color.primary) }
+                )
+              }
+            
+              GroupBox {
+                DisclosureGroup(
+                  content: {
+                    Text(mealDetails.strInstructions)
+                      .padding(.top, 10)
+                  },
+                  label: { Text("Instructions").font(.headline).foregroundStyle(Color.primary) }
+                )
               }
             }
             .padding()
           }
         }
         .ignoresSafeArea()
+        .toolbarBackground(.hidden, for: .navigationBar)
         .toolbar {
           ToolbarItem(placement: .cancellationAction) {
-            Button(action: {}) {
+            Button(action: { dismiss() }) {
               Image(systemName: "multiply.circle.fill")
                 .resizable()
                 .foregroundStyle(Color.white)
