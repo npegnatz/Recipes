@@ -20,83 +20,86 @@ struct MealDetailsView: View {
   //MARK: - Views
   var body: some View {
     NavigationStack {
-      if let mealDetails = viewModel.mealDetails {
-        VStack(spacing: 0) {
-          ZStack(alignment: .bottom) {
-            meal.imageView()
-              .aspectRatio(contentMode: .fill)
-              .frame(height: 300)
-              .overlay(LinearGradient(colors: [Color.clear, Color.black.opacity(0.75)], startPoint: .top, endPoint: .bottom))
+      ZStack {
+        if let mealDetails = viewModel.mealDetails {
+          VStack(spacing: 0) {
+            ZStack(alignment: .bottom) {
+              meal.imageView()
+                .aspectRatio(contentMode: .fill)
+                .overlay(LinearGradient(colors: [Color.clear, Color.black.opacity(0.85)], startPoint: .top, endPoint: .bottom))
+                .frame(height: 200)
+              
+              Text(mealDetails.strMeal)
+                .font(.system(size: 25, weight: .semibold))
+                .foregroundStyle(Color.white)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+            }
             
-            Text(mealDetails.strMeal)
-              .font(.system(size: 25, weight: .semibold))
-              .foregroundStyle(Color.white)
-              .frame(maxWidth: .infinity, alignment: .leading)
-              .padding()
-          }
-          
-          ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-              HStack {
-                ForEach([mealDetails.strCategory] + mealDetails.strTags, id: \.self) { item in
-                  if let item = item {
-                    Text(item)
-                      .foregroundStyle(.white)
-                      .font(.system(size: 13, weight: .semibold))
-                      .padding(10)
-                      .background(Capsule().fill(Color.primary))
+            ScrollView {
+              VStack(alignment: .leading, spacing: 20) {
+                HStack {
+                  ForEach([mealDetails.strCategory] + mealDetails.strTags, id: \.self) { item in
+                    if let item = item {
+                      Text(item)
+                        .foregroundStyle(.white)
+                        .font(.system(size: 13, weight: .semibold))
+                        .padding(10)
+                        .background(Capsule().fill(Color.primary))
+                    }
                   }
                 }
-              }
 
-              GroupBox {
-                DisclosureGroup(isExpanded: $isIngredientsExpanded,
-                  content: {
-                    VStack(alignment: .leading, spacing: 0) {
-                      Spacer()
-                    
-                      ForEach(mealDetails.ingredients) { item in
-                        HStack {
-                          Text(item.name)
-                          Spacer()
-                          Text(item.measure)
+                GroupBox {
+                  DisclosureGroup(isExpanded: $isIngredientsExpanded,
+                    content: {
+                      VStack(alignment: .leading, spacing: 0) {
+                        Spacer()
+                      
+                        ForEach(mealDetails.ingredients) { item in
+                          HStack {
+                            Text(item.name)
+                            Spacer()
+                            Text(item.measure)
+                          }
                         }
                       }
-                    }
-                  },
-                  label: { Text("Ingredients").font(.headline).foregroundStyle(Color.primary) }
-                )
+                    },
+                    label: { Text("Ingredients").font(.headline).foregroundStyle(Color.primary) }
+                  )
+                }
+              
+                GroupBox {
+                  DisclosureGroup(isExpanded: $isInstructionsExpanded,
+                    content: {
+                      Text(mealDetails.strInstructions)
+                        .padding(.top, 10)
+                    },
+                    label: { Text("Instructions").font(.headline).foregroundStyle(Color.primary) }
+                  )
+                }
               }
-            
-              GroupBox {
-                DisclosureGroup(isExpanded: $isInstructionsExpanded,
-                  content: {
-                    Text(mealDetails.strInstructions)
-                      .padding(.top, 10)
-                  },
-                  label: { Text("Instructions").font(.headline).foregroundStyle(Color.primary) }
-                )
-              }
+              .padding()
             }
-            .padding()
+            .background(.background)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
           }
-          .background(.background)
+        } else {
+          ProgressView()
         }
-        .ignoresSafeArea()
-        .toolbarBackground(.hidden, for: .navigationBar)
-        .toolbar {
-          ToolbarItem(placement: .cancellationAction) {
-            Button(action: { dismiss() }) {
-              Image(systemName: "multiply.circle.fill")
-                .resizable()
-                .foregroundStyle(Color.white)
-                .opacity(0.8)
-                .frame(width: 30, height: 30)
-            }
+      }
+      .ignoresSafeArea()
+      .toolbarBackground(.hidden, for: .navigationBar)
+      .toolbar {
+        ToolbarItem(placement: .cancellationAction) {
+          Button(action: { dismiss() }) {
+            Image(systemName: "multiply.circle.fill")
+              .resizable()
+              .foregroundStyle(Color.white)
+              .opacity(0.8)
+              .frame(width: 30, height: 30)
           }
         }
-      } else {
-        ProgressView()
       }
     }
     .onAppear {
