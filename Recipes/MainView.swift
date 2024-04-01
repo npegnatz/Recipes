@@ -7,19 +7,18 @@
 
 import SwiftUI
 
+/** Shows a list of dessert meals */
 struct MainView: View {
+  //MARK: - Variables
   @StateObject private var viewModel = MealsViewModel()
   @State private var selectedMeal: Meal?
+  private let gridColumns = Array(repeating: GridItem(.flexible(), spacing: 15), count: 2)
   
-  let columns = [
-    GridItem(.flexible()),
-    GridItem(.flexible())
-  ]
-  
+  //MARK: - Views
   var body: some View {
     NavigationView {
       ScrollView {
-        LazyVGrid(columns: columns) {
+        LazyVGrid(columns: gridColumns, spacing: 15) {
           ForEach(viewModel.meals) { meal in
             GeometryReader { geometry in
               ZStack(alignment: .bottomLeading) {
@@ -44,6 +43,8 @@ struct MainView: View {
               .frame(width: geometry.size.width, height: geometry.size.width)
             }
             .clipShape(RoundedRectangle(cornerRadius: 15))
+            .overlay(RoundedRectangle(cornerRadius: 15)
+              .stroke(.separator, lineWidth: 1.5))
             .aspectRatio(1, contentMode: .fit)
             .onTapGesture {
               selectedMeal = meal

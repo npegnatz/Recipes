@@ -24,10 +24,16 @@ struct MealDetailsView: View {
         if let mealDetails = viewModel.mealDetails {
           VStack(spacing: 0) {
             ZStack(alignment: .bottom) {
-              meal.imageView()
-                .aspectRatio(contentMode: .fill)
-                .overlay(LinearGradient(colors: [Color.clear, Color.black.opacity(0.85)], startPoint: .top, endPoint: .bottom))
-                .frame(height: 175)
+              AsyncImage(url: URL(string: meal.strMealThumb)) { image in
+                image
+                  .resizable()
+                  .scaledToFill()
+              } placeholder: {
+                ProgressView()
+              }
+              .aspectRatio(contentMode: .fill)
+              .overlay(LinearGradient(colors: [Color.clear, Color.black.opacity(0.85)], startPoint: .top, endPoint: .bottom))
+              .frame(height: 250)
               
               Text(mealDetails.strMeal)
                 .font(.system(size: 25, weight: .semibold))
@@ -43,7 +49,7 @@ struct MealDetailsView: View {
                     ForEach([mealDetails.strCategory] + mealDetails.strTags, id: \.self) { item in
                       if let item = item {
                         Text(item)
-                          .foregroundStyle(.white)
+                          .foregroundStyle(.background)
                           .font(.system(size: 13, weight: .semibold))
                           .padding(10)
                           .background(Capsule().fill(Color.primary))
@@ -55,14 +61,14 @@ struct MealDetailsView: View {
                 GroupBox {
                   DisclosureGroup(isExpanded: $isIngredientsExpanded,
                     content: {
-                      VStack(alignment: .leading, spacing: 0) {
+                      LazyVStack(alignment: .leading, spacing: 5) {
                         Spacer()
                       
                         ForEach(mealDetails.ingredients) { item in
                           HStack {
                             Text(item.name)
                             Spacer()
-                            Text(item.measure)
+                            Text(item.measure).fontWeight(.semibold)
                           }
                         }
                       }
@@ -74,7 +80,7 @@ struct MealDetailsView: View {
                 GroupBox {
                   DisclosureGroup(isExpanded: $isInstructionsExpanded,
                     content: {
-                      Text(mealDetails.strInstructions)
+                    Text(mealDetails.strInstructions)
                         .padding(.top, 10)
                     },
                     label: { Text("Instructions").font(.headline).foregroundStyle(Color.primary) }
@@ -95,11 +101,9 @@ struct MealDetailsView: View {
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {
           Button(action: { dismiss() }) {
-            Image(systemName: "multiply.circle.fill")
-              .resizable()
-              .foregroundStyle(Color.white)
-              .opacity(0.8)
-              .frame(width: 30, height: 30)
+            Image(systemName: "xmark")
+              .foregroundStyle(viewModel.mealDetails != nil ? Color.white : Color.primary)
+              .font(.system(size: 22.5, weight: .bold))
           }
         }
       }
