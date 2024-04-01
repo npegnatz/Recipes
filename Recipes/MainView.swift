@@ -16,7 +16,7 @@ struct MainView: View {
   
   //MARK: - Views
   var body: some View {
-    NavigationView {
+    NavigationStack {
       ScrollView {
         LazyVGrid(columns: gridColumns, spacing: 15) {
           ForEach(viewModel.meals) { meal in
