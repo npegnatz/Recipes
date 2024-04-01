@@ -19,22 +19,32 @@ struct MainView: View {
   var body: some View {
     NavigationView {
       ScrollView {
-        LazyVGrid(columns: columns, spacing: 20) {
+        LazyVGrid(columns: columns) {
           ForEach(viewModel.meals) { meal in
-            ZStack {
-              meal.imageView()
-                .overlay(LinearGradient(colors: [Color.clear, Color.black], startPoint: .top, endPoint: .bottom))
-              
-              VStack {
-                Spacer()
-                Text(meal.strMeal)
-                  .fontWeight(.semibold)
-                  .foregroundStyle(.white)
+            GeometryReader { geometry in
+              ZStack(alignment: .bottomLeading) {
+                AsyncImage(url: URL(string: meal.strMealThumb)) { image in
+                  image
+                    .resizable()
+                    .scaledToFill()
+                } placeholder: {
+                  ProgressView()
+                }
+                
+                LinearGradient(colors: [Color.clear, Color.black], startPoint: .top, endPoint: .bottom)
+                
+                VStack {
+                  Spacer()
+                  Text(meal.strMeal)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.white)
+                }
+                .padding()
               }
-              .padding(10)
+              .frame(width: geometry.size.width, height: geometry.size.width)
             }
-            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-            .padding([.leading, .trailing], 5)
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+            .aspectRatio(1, contentMode: .fit)
             .onTapGesture {
               selectedMeal = meal
             }
