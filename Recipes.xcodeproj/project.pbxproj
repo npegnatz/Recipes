@@ -85,6 +85,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB7B672D2BBB0B3600799EBA /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				DB0EA1B92BBA1EEC00333D9C /* Extensions.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		DBA92E482BB72EB5000EC90A /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,12 +135,12 @@
 		DBC57DCE2BB4869A0075615C /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				DBA92E4D2BB72F73000EC90A /* View Models */,
-				DBA92E482BB72EB5000EC90A /* Models */,
 				DBC57DCF2BB4869A0075615C /* RecipesApp.swift */,
 				DBC57DD12BB4869A0075615C /* MainView.swift */,
 				DBC57DFB2BB491350075615C /* MealDetailsView.swift */,
-				DB0EA1B92BBA1EEC00333D9C /* Extensions.swift */,
+				DBA92E4D2BB72F73000EC90A /* View Models */,
+				DBA92E482BB72EB5000EC90A /* Models */,
+				DB7B672D2BBB0B3600799EBA /* Library */,
 				DBC57DD32BB4869A0075615C /* Assets.xcassets */,
 				DBC57DD52BB4869A0075615C /* Preview Content */,
 			);
