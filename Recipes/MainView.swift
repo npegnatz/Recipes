@@ -22,13 +22,7 @@ struct MainView: View {
           ForEach(viewModel.meals) { meal in
             GeometryReader { geometry in
               ZStack(alignment: .bottomLeading) {
-                AsyncImage(url: URL(string: meal.strMealThumb)) { image in
-                  image
-                    .resizable()
-                    .scaledToFill()
-                } placeholder: {
-                  ProgressView()
-                }
+                meal.imageView()
                 
                 LinearGradient(colors: [Color.clear, Color.black], startPoint: .top, endPoint: .bottom)
                 

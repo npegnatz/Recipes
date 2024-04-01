@@ -15,6 +15,7 @@ struct MealDetailsView: View {
   @StateObject private var viewModel = MealDetailsViewModel()
   @State private var isIngredientsExpanded: Bool = true
   @State private var isInstructionsExpanded: Bool = true
+  private let headerHeight: CGFloat = 175
   var meal: Meal
   
   //MARK: - Views
@@ -24,16 +25,9 @@ struct MealDetailsView: View {
         if let mealDetails = viewModel.mealDetails {
           VStack(spacing: 0) {
             ZStack(alignment: .bottom) {
-              AsyncImage(url: URL(string: meal.strMealThumb)) { image in
-                image
-                  .resizable()
-                  .scaledToFill()
-              } placeholder: {
-                ProgressView()
-              }
-              .aspectRatio(contentMode: .fill)
-              .overlay(LinearGradient(colors: [Color.clear, Color.black.opacity(0.85)], startPoint: .top, endPoint: .bottom))
-              .frame(height: 250)
+              meal.imageView()
+                .overlay(LinearGradient(colors: [Color.clear, Color.black], startPoint: .top, endPoint: .bottom))
+                .frame(height: headerHeight)
               
               Text(mealDetails.strMeal)
                 .font(.system(size: 25, weight: .semibold))
@@ -103,7 +97,7 @@ struct MealDetailsView: View {
           Button(action: { dismiss() }) {
             Image(systemName: "xmark")
               .foregroundStyle(viewModel.mealDetails != nil ? Color.white : Color.primary)
-              .font(.system(size: 22.5, weight: .bold))
+              .font(.system(size: 22.5, weight: .medium))
           }
         }
       }
