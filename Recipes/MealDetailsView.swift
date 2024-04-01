@@ -11,7 +11,7 @@ import SwiftUI
 /** Shows detailed information for a meal */
 struct MealDetailsView: View {
   //MARK: - Variables
-  @Environment(\.dismiss) var dismiss
+  @Environment(\.dismiss) private var dismiss
   @StateObject private var viewModel = MealDetailsViewModel()
   @State private var isIngredientsExpanded: Bool = true
   @State private var isInstructionsExpanded: Bool = true
@@ -24,6 +24,7 @@ struct MealDetailsView: View {
       ZStack {
         if let mealDetails = viewModel.mealDetails {
           VStack(spacing: 0) {
+            /* Header View */
             ZStack(alignment: .bottom) {
               meal.imageView()
                 .overlay(LinearGradient(colors: [Color.clear, Color.black], startPoint: .top, endPoint: .bottom))
@@ -36,6 +37,7 @@ struct MealDetailsView: View {
                 .padding()
             }
             
+            /* Details View */
             ScrollView {
               VStack(alignment: .leading, spacing: 20) {
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -52,33 +54,23 @@ struct MealDetailsView: View {
                   }
                 }
                 
-                GroupBox {
-                  DisclosureGroup(isExpanded: $isIngredientsExpanded,
-                    content: {
-                      LazyVStack(alignment: .leading, spacing: 5) {
+                DetailBox("Ingredients", isExpanded: $isIngredientsExpanded) {
+                  LazyVStack(alignment: .leading, spacing: 5) {
+                    Spacer()
+                  
+                    ForEach(mealDetails.ingredients) { item in
+                      HStack {
+                        Text(item.name)
                         Spacer()
-                      
-                        ForEach(mealDetails.ingredients) { item in
-                          HStack {
-                            Text(item.name)
-                            Spacer()
-                            Text(item.measure).fontWeight(.semibold)
-                          }
-                        }
+                        Text(item.measure).fontWeight(.semibold)
                       }
-                    },
-                    label: { Text("Ingredients").font(.headline).foregroundStyle(Color.primary) }
-                  )
+                    }
+                  }
                 }
-              
-                GroupBox {
-                  DisclosureGroup(isExpanded: $isInstructionsExpanded,
-                    content: {
-                    Text(mealDetails.strInstructions)
-                        .padding(.top, 10)
-                    },
-                    label: { Text("Instructions").font(.headline).foregroundStyle(Color.primary) }
-                  )
+
+                DetailBox("Instructions", isExpanded: $isInstructionsExpanded) {
+                  Text(mealDetails.strInstructions)
+                    .padding(.top, 10)
                 }
               }
               .padding()
@@ -104,6 +96,19 @@ struct MealDetailsView: View {
     }
     .onAppear {
       viewModel.fetchMealDetails(mealID: meal.idMeal)
+    }
+  }
+  
+  @ViewBuilder
+  func DetailBox<T: View>(_ title: String, isExpanded: Binding<Bool>, @ViewBuilder content: @escaping () -> T) -> some View {
+    GroupBox {
+      DisclosureGroup(
+        isExpanded: isExpanded,
+        content: content,
+        label: {
+          Text(title).font(.headline).foregroundStyle(Color.primary)
+        }
+      )
     }
   }
 }

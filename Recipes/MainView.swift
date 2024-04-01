@@ -38,7 +38,7 @@ struct MainView: View {
             }
             .clipShape(RoundedRectangle(cornerRadius: 15))
             .overlay(RoundedRectangle(cornerRadius: 15)
-              .stroke(.separator, lineWidth: 1.5))
+              .stroke(.separator, lineWidth: 1))
             .aspectRatio(1, contentMode: .fit)
             .onTapGesture {
               selectedMeal = meal
