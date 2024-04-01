@@ -8,13 +8,13 @@
 import Foundation
 import SwiftUI
 
-/** Shows detailed information for a meal */
+/** A view that shows detailed meal information fetched from `MealDetailsViewModel` for the given meal  */
 struct MealDetailsView: View {
   //MARK: - Variables
-  @Environment(\.dismiss) private var dismiss
   @StateObject private var viewModel = MealDetailsViewModel()
   @State private var isIngredientsExpanded: Bool = true
   @State private var isInstructionsExpanded: Bool = true
+  @Environment(\.dismiss) private var dismiss
   private let headerHeight: CGFloat = 175
   var meal: Meal
   
@@ -25,17 +25,9 @@ struct MealDetailsView: View {
         if let mealDetails = viewModel.mealDetails {
           VStack(spacing: 0) {
             /* Header View */
-            ZStack(alignment: .bottom) {
-              meal.imageView()
-                .overlay(LinearGradient(colors: [Color.clear, Color.black], startPoint: .top, endPoint: .bottom))
-                .frame(height: headerHeight)
-              
-              Text(mealDetails.strMeal)
-                .font(.system(size: 25, weight: .semibold))
-                .foregroundStyle(Color.white)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-            }
+            meal.imageView()
+              .frame(height: headerHeight)
+              .gradientTitleOverlay(title: meal.strMeal, font: .system(size: 25, weight: .semibold))
             
             /* Details View */
             ScrollView {

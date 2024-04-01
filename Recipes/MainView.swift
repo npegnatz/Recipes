@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/** Shows a list of dessert meals */
+/** A view that displays a grid of dessert meals fetched from `MealsViewModel`  */
 struct MainView: View {
   //MARK: - Variables
   @StateObject private var viewModel = MealsViewModel()
@@ -21,20 +21,9 @@ struct MainView: View {
         LazyVGrid(columns: gridColumns, spacing: 15) {
           ForEach(viewModel.meals) { meal in
             GeometryReader { geometry in
-              ZStack(alignment: .bottomLeading) {
-                meal.imageView()
-                
-                LinearGradient(colors: [Color.clear, Color.black], startPoint: .top, endPoint: .bottom)
-                
-                VStack {
-                  Spacer()
-                  Text(meal.strMeal)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.white)
-                }
-                .padding()
-              }
-              .frame(width: geometry.size.width, height: geometry.size.width)
+              meal.imageView()
+                .gradientTitleOverlay(title: meal.strMeal, font: .system(size: 18, weight: .semibold))
+                .frame(width: geometry.size.width, height: geometry.size.width)
             }
             .clipShape(RoundedRectangle(cornerRadius: 15))
             .overlay(RoundedRectangle(cornerRadius: 15)
