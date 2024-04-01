@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import SwiftUI
 
+/** Model for a dessert meal  */
 struct Meal: Identifiable, Decodable {
   let idMeal: String
   let strMeal: String

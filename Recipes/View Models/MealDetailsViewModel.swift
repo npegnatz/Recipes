@@ -7,6 +7,7 @@
 
 import Foundation
 
+/** ViewModel for fetching dessert meal details */
 class MealDetailsViewModel: ObservableObject {
   @Published var mealDetails: MealDetails?
   

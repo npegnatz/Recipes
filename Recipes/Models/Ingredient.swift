@@ -7,6 +7,7 @@
 
 import Foundation
 
+/** Model for an ingredient name/measure combo  */
 struct Ingredient: Identifiable {
   let id = UUID()
   let name: String

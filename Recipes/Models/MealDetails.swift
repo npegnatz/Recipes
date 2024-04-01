@@ -7,6 +7,7 @@
 
 import Foundation
 
+/** Model for more detailed dessert info (instructions, ingredients, category, tags) */
 struct MealDetails: Decodable {
   let idMeal: String
   let strMeal: String
