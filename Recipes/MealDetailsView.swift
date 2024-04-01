@@ -27,7 +27,7 @@ struct MealDetailsView: View {
               meal.imageView()
                 .aspectRatio(contentMode: .fill)
                 .overlay(LinearGradient(colors: [Color.clear, Color.black.opacity(0.85)], startPoint: .top, endPoint: .bottom))
-                .frame(height: 200)
+                .frame(height: 175)
               
               Text(mealDetails.strMeal)
                 .font(.system(size: 25, weight: .semibold))
@@ -38,18 +38,20 @@ struct MealDetailsView: View {
             
             ScrollView {
               VStack(alignment: .leading, spacing: 20) {
-                HStack {
-                  ForEach([mealDetails.strCategory] + mealDetails.strTags, id: \.self) { item in
-                    if let item = item {
-                      Text(item)
-                        .foregroundStyle(.white)
-                        .font(.system(size: 13, weight: .semibold))
-                        .padding(10)
-                        .background(Capsule().fill(Color.primary))
+                ScrollView(.horizontal, showsIndicators: false) {
+                  LazyHStack {
+                    ForEach([mealDetails.strCategory] + mealDetails.strTags, id: \.self) { item in
+                      if let item = item {
+                        Text(item)
+                          .foregroundStyle(.white)
+                          .font(.system(size: 13, weight: .semibold))
+                          .padding(10)
+                          .background(Capsule().fill(Color.primary))
+                      }
                     }
                   }
                 }
-
+                
                 GroupBox {
                   DisclosureGroup(isExpanded: $isIngredientsExpanded,
                     content: {

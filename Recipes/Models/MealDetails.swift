@@ -43,19 +43,20 @@ struct MealDetails: Decodable {
     strMeal = try container.decode(String.self, forKey: .strMeal)
     strInstructions = try container.decode(String.self, forKey: .strInstructions)
     strMealThumb = try container.decode(String.self, forKey: .strMealThumb)
-    strCategory = try container.decode(String.self, forKey: .strCategory)
-    strTags = (try container.decode(String.self, forKey: .strTags)).components(separatedBy: ",")
-    strSource = try container.decode(String.self, forKey: .strSource)
+    strCategory = try container.decode(String?.self, forKey: .strCategory)
+    strTags = (try? container.decode(String.self, forKey: .strTags))?.components(separatedBy: ",") ?? [String]()
+    strSource = try container.decode(String?.self, forKey: .strSource)
     
-    
-    let ingredientContainer = try decoder.container(keyedBy: OtherKeys.self)
-    let ingredientKeys = ingredientContainer.allKeys.filter { $0.stringValue.starts(with: "strIngredient") }.sorted { $0.index < $1.index }
-    let measureKeys = ingredientContainer.allKeys.filter { $0.stringValue.starts(with: "strMeasure") }.sorted { $0.index < $1.index }
     
     var ingredientsTemp = [Ingredient]()
-    for i in 0..<ingredientKeys.count {
-      if let name = try? ingredientContainer.decode(String.self, forKey: ingredientKeys[i]), let measure = try? ingredientContainer.decode(String.self, forKey: measureKeys[i]), !name.isEmpty {
-        ingredientsTemp.append(Ingredient(name: name, measure: measure))
+    if let ingredientContainer = try? decoder.container(keyedBy: OtherKeys.self) {
+      let ingredientKeys = ingredientContainer.allKeys.filter { $0.stringValue.starts(with: "strIngredient") }.sorted { $0.index < $1.index }
+      let measureKeys = ingredientContainer.allKeys.filter { $0.stringValue.starts(with: "strMeasure") }.sorted { $0.index < $1.index }
+      
+      for i in 0..<ingredientKeys.count {
+        if let name = try? ingredientContainer.decode(String.self, forKey: ingredientKeys[i]), let measure = try? ingredientContainer.decode(String.self, forKey: measureKeys[i]), !name.isEmpty {
+          ingredientsTemp.append(Ingredient(name: name, measure: measure))
+        }
       }
     }
     ingredients = ingredientsTemp
