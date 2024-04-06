@@ -43,7 +43,9 @@ struct MainView: View {
         MealDetailsView(meal: meal)
       })
       .onAppear {
-        viewModel.fetchDesserts()
+        Task {
+          try? await viewModel.fetchDesserts()
+        }
       }
     }
   }

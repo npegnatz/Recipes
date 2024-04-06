@@ -87,7 +87,9 @@ struct MealDetailsView: View {
       }
     }
     .onAppear {
-      viewModel.fetchMealDetails(mealID: meal.idMeal)
+      Task {
+        try? await viewModel.fetchMealDetails(mealID: meal.idMeal)
+      }
     }
   }
   
