@@ -10,7 +10,7 @@ import SwiftUI
 /** A view that displays a grid of dessert meals fetched from `MealsViewModel`  */
 struct MainView: View {
   //MARK: - Variables
-  @StateObject private var viewModel = MealsViewModel()
+  @StateObject private var viewModel = APIService<Meal>()
   @State private var selectedMeal: Meal?
   private let gridColumns = Array(repeating: GridItem(.flexible(), spacing: 15), count: 2)
   
@@ -19,7 +19,7 @@ struct MainView: View {
     NavigationStack {
       ScrollView {
         LazyVGrid(columns: gridColumns, spacing: 15) {
-          ForEach(viewModel.meals) { meal in
+          ForEach(viewModel.data) { meal in
             GeometryReader { geometry in
               meal.imageView()
                 .gradientTitleOverlay(title: meal.strMeal, font: .system(size: 18, weight: .semibold))
@@ -44,7 +44,7 @@ struct MainView: View {
       })
       .onAppear {
         Task {
-          try? await viewModel.fetchDesserts()
+          try? await viewModel.fetch(url: "https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert")
         }
       }
     }

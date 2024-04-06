@@ -11,7 +11,7 @@ import SwiftUI
 /** A view that shows detailed meal information fetched from `MealDetailsViewModel` for the given meal  */
 struct MealDetailsView: View {
   //MARK: - Variables
-  @StateObject private var viewModel = MealDetailsViewModel()
+  @StateObject private var viewModel = APIService<MealDetails>()
   @State private var isIngredientsExpanded: Bool = true
   @State private var isInstructionsExpanded: Bool = true
   @Environment(\.dismiss) private var dismiss
@@ -22,7 +22,7 @@ struct MealDetailsView: View {
   var body: some View {
     NavigationStack {
       ZStack {
-        if let mealDetails = viewModel.mealDetails {
+        if let mealDetails = viewModel.data.first {
           VStack(spacing: 0) {
             /* Header View */
             meal.imageView()
@@ -80,7 +80,7 @@ struct MealDetailsView: View {
         ToolbarItem(placement: .cancellationAction) {
           Button(action: { dismiss() }) {
             Image(systemName: "xmark")
-              .foregroundStyle(viewModel.mealDetails != nil ? Color.white : Color.primary)
+              .foregroundStyle(viewModel.data.first != nil ? Color.white : Color.primary)
               .font(.system(size: 22.5, weight: .medium))
           }
         }
@@ -88,7 +88,7 @@ struct MealDetailsView: View {
     }
     .onAppear {
       Task {
-        try? await viewModel.fetchMealDetails(mealID: meal.idMeal)
+        try? await viewModel.fetch(url: "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(meal.idMeal)")
       }
     }
   }
