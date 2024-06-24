@@ -11,7 +11,7 @@ Native iOS application, developed in SwiftUI, that allows users to browse and di
 ## Screenshots
 
 <table style="border-collapse: collapse;">
-  <tr><td><img src="https://github.com/npegnatz/recipe-app/assets/46145522/2e028a82-6abc-4e84-88ec-555dcb929d53" height="300"></td>
-    <td><img src="https://github.com/npegnatz/recipe-app/assets/46145522/9a7a6ede-a8a6-4e5b-b974-60ab94493e11" height="300"></td>
+  <tr><td><img src="https://github.com/npegnatz/recipe-app/assets/46145522/2e028a82-6abc-4e84-88ec-555dcb929d53" height="400"></td>
+    <td><img src="https://github.com/npegnatz/recipe-app/assets/46145522/9a7a6ede-a8a6-4e5b-b974-60ab94493e11" height="400"></td>
   </tr>
 </table>
