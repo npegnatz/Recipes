@@ -16,7 +16,9 @@ class APIService<T: Decodable>: ObservableObject {
     
     let (data, _) = try await URLSession.shared.data(from: url)
     let dataResponse = try JSONDecoder().decode(Response.self, from: data)
-    self.data = dataResponse.meals
+    await MainActor.run {
+      self.data = dataResponse.meals
+    }
   }
   
   struct Response: Decodable {
