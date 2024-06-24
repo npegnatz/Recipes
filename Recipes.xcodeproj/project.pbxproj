@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DB0EA1BA2BBA1EEC00333D9C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0EA1B92BBA1EEC00333D9C /* Extensions.swift */; };
+		DB10637F2C29D65A0090E1B4 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB10637E2C29D65A0090E1B4 /* NetworkTests.swift */; };
 		DBA92E4A2BB72EC4000EC90A /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA92E492BB72EC4000EC90A /* Ingredient.swift */; };
 		DBA92E4C2BB72EEA000EC90A /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA92E4B2BB72EEA000EC90A /* Meal.swift */; };
 		DBA92E512BB73008000EC90A /* MealDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA92E502BB73008000EC90A /* MealDetails.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		DB0EA1B92BBA1EEC00333D9C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DB10637E2C29D65A0090E1B4 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		DBA92E492BB72EC4000EC90A /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		DBA92E4B2BB72EEA000EC90A /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		DBA92E502BB73008000EC90A /* MealDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetails.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				DBC57DE02BB4869B0075615C /* RecipesTests.swift */,
+				DB10637E2C29D65A0090E1B4 /* NetworkTests.swift */,
 			);
 			path = RecipesTests;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB10637F2C29D65A0090E1B4 /* NetworkTests.swift in Sources */,
 				DBC57DE12BB4869B0075615C /* RecipesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
