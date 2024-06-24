@@ -22,7 +22,7 @@ struct MainView: View {
           ForEach(viewModel.data) { meal in
             GeometryReader { geometry in
               meal.imageView()
-                .gradientTitleOverlay(title: meal.strMeal, font: .system(size: 18, weight: .semibold))
+                .gradientTitleOverlay(title: meal.name, font: .system(size: 18, weight: .semibold))
                 .frame(width: geometry.size.width, height: geometry.size.width)
             }
             .clipShape(RoundedRectangle(cornerRadius: 15))

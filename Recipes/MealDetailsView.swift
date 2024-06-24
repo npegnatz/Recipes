@@ -27,14 +27,14 @@ struct MealDetailsView: View {
             /* Header View */
             meal.imageView()
               .frame(height: headerHeight)
-              .gradientTitleOverlay(title: meal.strMeal, font: .system(size: 25, weight: .semibold))
+              .gradientTitleOverlay(title: meal.name, font: .system(size: 25, weight: .semibold))
             
             /* Details View */
             ScrollView {
               VStack(alignment: .leading, spacing: 20) {
                 ScrollView(.horizontal, showsIndicators: false) {
                   LazyHStack {
-                    ForEach([mealDetails.strCategory] + mealDetails.strTags, id: \.self) { item in
+                    ForEach([mealDetails.category] + mealDetails.tags, id: \.self) { item in
                       if let item = item {
                         Text(item)
                           .foregroundStyle(.background)
@@ -61,7 +61,7 @@ struct MealDetailsView: View {
                 }
 
                 DetailBox("Instructions", isExpanded: $isInstructionsExpanded) {
-                  Text(mealDetails.strInstructions)
+                  Text(mealDetails.instructions)
                     .padding(.top, 10)
                 }
               }
@@ -88,7 +88,7 @@ struct MealDetailsView: View {
     }
     .onAppear {
       Task {
-        try? await viewModel.fetch(url: "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(meal.idMeal)")
+        try? await viewModel.fetch(url: "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(meal.id)")
       }
     }
   }
@@ -108,5 +108,5 @@ struct MealDetailsView: View {
 }
 
 #Preview {
-  MealDetailsView(meal: Meal(idMeal: "52893", strMeal: "Apple & Blackberry Crumble", strMealThumb: "https://www.themealdb.com/images/media/meals/xvsurr1511719182.jpg"))
+  MealDetailsView(meal: Meal(id: "52893", name: "Apple & Blackberry Crumble", thumbnailUrl: "https://www.themealdb.com/images/media/meals/xvsurr1511719182.jpg"))
 }

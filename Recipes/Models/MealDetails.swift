@@ -9,13 +9,13 @@ import Foundation
 
 /** Model for more detailed dessert info (instructions, ingredients, category, tags) */
 struct MealDetails: Decodable {
-  let idMeal: String
-  let strMeal: String
-  let strInstructions: String
-  let strMealThumb: String
-  let strCategory: String?
-  let strTags: [String]
-  let strSource: String?
+  let id: String
+  let name: String
+  let instructions: String
+  let thumbnailUrl: String
+  let category: String?
+  let tags: [String]
+  let source: String?
   let ingredients: [Ingredient]
   
   enum MealDetailsCodingKeys: String, CodingKey {
@@ -40,13 +40,13 @@ struct MealDetails: Decodable {
   
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: MealDetailsCodingKeys.self)
-    idMeal = try container.decode(String.self, forKey: .idMeal)
-    strMeal = try container.decode(String.self, forKey: .strMeal)
-    strInstructions = try container.decode(String.self, forKey: .strInstructions)
-    strMealThumb = try container.decode(String.self, forKey: .strMealThumb)
-    strCategory = try container.decode(String?.self, forKey: .strCategory)
-    strTags = (try? container.decode(String.self, forKey: .strTags))?.components(separatedBy: ",") ?? [String]()
-    strSource = try container.decode(String?.self, forKey: .strSource)
+    id = try container.decode(String.self, forKey: .idMeal)
+    name = try container.decode(String.self, forKey: .strMeal)
+    instructions = try container.decode(String.self, forKey: .strInstructions)
+    thumbnailUrl = try container.decode(String.self, forKey: .strMealThumb)
+    category = try container.decode(String?.self, forKey: .strCategory)
+    tags = (try? container.decode(String.self, forKey: .strTags))?.components(separatedBy: ",") ?? [String]()
+    source = try container.decode(String?.self, forKey: .strSource)
     
     
     var ingredientsTemp = [Ingredient]()
